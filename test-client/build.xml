@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="build" name="armis-test-client">
+
+    <property name="source" location="src/main/java"/>
+    <property name="ext_directory" location="../ext"/>
+    <property name="destination" location="dist"/>
+
+    <property name="manager_package_aid" value="4D616E61676572"/>
+    <property name="ecosystem_package_name" value="ee.openeid.armis.applet.ecosystem"/>
+    <property name="util_lib_directory" location="../util-lib/dist"/>
+
+    <property name="test_client_package_cap" value="armis-test-client.cap"/>
+    <property name="test_client_package_name" value="${ecosystem_package_name}.testclient"/>
+    <property name="test_client_applet_name" value="TestClient"/>
+    <property name="test_client_package_aid" value="${manager_package_aid}41"/>
+    <property name="test_client_applet_aid" value="${test_client_package_aid}7071"/>
+
+    <get src="https://github.com/martinpaljak/ant-javacard/releases/latest/download/ant-javacard.jar" dest="${ext_directory}" skipexisting="true"/>
+    <taskdef name="javacard" classname="pro.javacard.ant.JavaCard" classpath="${ext_directory}/ant-javacard.jar"/>
+
+    <target name="init">
+        <mkdir dir="${destination}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${destination}"/>
+    </target>
+
+    <target name="build" depends="init">
+        <javacard jckit="${ext_directory}/sdks/jc304_kit">
+            <cap sources="${source}" output="${destination}/${test_client_package_cap}"
+                 export="${destination}" package="${test_client_package_name}" aid="${test_client_package_aid}">
+                <import exps="${util_lib_directory}" jar="${util_lib_directory}/libs.jar"/>
+                <import exps="${ext_directory}/gp-exports/org.globalplatform-1.6/exports" jar="${ext_directory}/gp-exports/org.globalplatform-1.6/gpapi-globalplatform.jar"/>
+                <applet class="${test_client_package_name}.${test_client_applet_name}" aid="${test_client_applet_aid}"/>
+            </cap>
+        </javacard>
+    </target>
+
+</project>

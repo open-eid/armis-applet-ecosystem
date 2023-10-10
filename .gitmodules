@@ -1,0 +1,6 @@
+[submodule "ext/sdks"]
+	path = ext/sdks
+	url = https://github.com/martinpaljak/oracle_javacard_sdks
+[submodule "ext/gp-exports"]
+	path = ext/gp-exports
+	url = https://github.com/OpenJavaCard/globalplatform-exports.git

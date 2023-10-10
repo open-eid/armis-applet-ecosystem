@@ -1,0 +1,6 @@
+# Built applet CAP and EXP files
+dist/
+
+# IntelliJ
+*.iml
+.idea/

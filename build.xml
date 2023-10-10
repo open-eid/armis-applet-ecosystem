@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="armis-applet-ecosystem-aggregator">
+
+	<property name="module_util_lib" location="util-lib"/>
+	<property name="module_manager" location="manager"/>
+	<property name="module_test_client" location="test-client"/>
+
+	<target name="clean">
+		<ant dir="${module_util_lib}" antfile="${module_util_lib}/build.xml" target="clean"/>
+		<ant dir="${module_manager}" antfile="${module_manager}/build.xml" target="clean"/>
+		<ant dir="${module_test_client}" antfile="${module_test_client}/build.xml" target="clean"/>
+	</target>
+
+	<target name="build" depends="clean">
+		<ant dir="${module_util_lib}" antfile="${module_util_lib}/build.xml" target="build"/>
+		<ant dir="${module_manager}" antfile="${module_manager}/build.xml" target="build"/>
+		<ant dir="${module_test_client}" antfile="${module_test_client}/build.xml" target="build"/>
+	</target>
+
+</project>

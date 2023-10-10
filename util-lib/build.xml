@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="build" name="armis-applet-ecosystem-lib">
+
+    <property name="source" location="src/main/java"/>
+    <property name="ext_directory" location="../ext"/>
+    <property name="destination" location="dist"/>
+
+    <property name="ecosystem_package_name" value="ee.openeid.armis.applet.ecosystem"/>
+
+    <property name="lib_package_cap" value="armis-ecosystem-lib.cap"/>
+    <property name="lib_package_name" value="${ecosystem_package_name}.libs"/>
+    <property name="lib_package_aid" value="41524D49532D6C6962"/>
+
+    <get src="https://github.com/martinpaljak/ant-javacard/releases/latest/download/ant-javacard.jar" dest="${ext_directory}" skipexisting="true"/>
+    <taskdef name="javacard" classname="pro.javacard.ant.JavaCard" classpath="${ext_directory}/ant-javacard.jar"/>
+
+    <target name="init">
+        <mkdir dir="${destination}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${destination}"/>
+    </target>
+
+    <target name="build" depends="init">
+        <javacard jckit="${ext_directory}/sdks/jc304_kit">
+            <cap sources="${source}" output="${destination}/${lib_package_cap}" export="${destination}" package="${lib_package_name}" aid="${lib_package_aid}">
+                <import exps="${ext_directory}/gp-exports/org.globalplatform-1.6/exports" jar="${ext_directory}/gp-exports/org.globalplatform-1.6/gpapi-globalplatform.jar"/>
+            </cap>
+        </javacard>
+    </target>
+
+</project>
